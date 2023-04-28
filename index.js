@@ -3,7 +3,8 @@ import mongoose from 'mongoose'
 import path from 'path'
 import cloudinary from './cloudinary.js'
 import upload from './multer.js'
-
+import bcrypt from 'bcrypt'
+import userModel from './model/index.js'
 
 mongoose.connect('mongodb+srv://mern02:mern02@cluster0.otbbzte.mongodb.net/?retryWrites=true&w=majority')
 const app = express()
@@ -19,9 +20,17 @@ app.post("/signup", upload.single('image'), async (req, res) => {
         req.file.path,
         { public_id: req.file.originalname }
     )
-
-    res.send('ok')
+    const pwsrd = await bcrypt.hash(req.body.password, 10)
+    const newUser = {
+        username: req.body.username,
+        email: req.body.email,
+        password: pwsrd,
+        image: secure_url
+    }
+    userModel.create(newUser)
+    res.send('has been created successfully!')
 })
+
 app.listen(5000, () => {
     console.log('server is up...')
 })
