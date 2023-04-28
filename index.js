@@ -1,6 +1,7 @@
 import express from 'express'
+import mongoose from 'mongoose'
 import path from 'path'
-
+mongoose.connect('mongodb+srv://mern02:mern02@cluster0.otbbzte.mongodb.net/?retryWrites=true&w=majority')
 const app = express()
 
 app.get('/signup', (req, res) => {
