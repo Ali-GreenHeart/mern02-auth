@@ -1,6 +1,10 @@
 import express from 'express'
 import mongoose from 'mongoose'
 import path from 'path'
+import cloudinary from './cloudinary.js'
+import upload from './multer.js'
+
+
 mongoose.connect('mongodb+srv://mern02:mern02@cluster0.otbbzte.mongodb.net/?retryWrites=true&w=majority')
 const app = express()
 
@@ -10,7 +14,14 @@ app.get('/signup', (req, res) => {
 app.get('/signin', (req, res) => {
     res.sendFile(path.resolve("./pages/signin.html"))
 })
+app.post("/signup", upload.single('image'), async (req, res) => {
+    const { secure_url } = await cloudinary.uploader.upload(
+        req.file.path,
+        { public_id: req.file.originalname }
+    )
 
+    res.send('ok')
+})
 app.listen(5000, () => {
     console.log('server is up...')
 })

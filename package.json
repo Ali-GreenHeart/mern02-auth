@@ -19,7 +19,9 @@
   },
   "homepage": "https://github.com/Ali-GreenHeart/mern02-auth#readme",
   "dependencies": {
+    "cloudinary": "^1.36.2",
     "express": "^4.18.2",
-    "mongoose": "^7.1.0"
+    "mongoose": "^7.1.0",
+    "multer": "^1.4.5-lts.1"
   }
 }
