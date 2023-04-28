@@ -1,0 +1,23 @@
+{
+  "name": "mern02-auth",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ali-GreenHeart/mern02-auth.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ali-GreenHeart/mern02-auth/issues"
+  },
+  "homepage": "https://github.com/Ali-GreenHeart/mern02-auth#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
