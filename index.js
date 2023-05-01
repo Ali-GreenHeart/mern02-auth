@@ -6,8 +6,9 @@ import upload from './multer.js'
 import bcrypt from 'bcrypt'
 import userModel from './model/index.js'
 import jwt from 'jsonwebtoken'
+import { authMiddleware } from './auth.js'
+import { JWT_SECRET } from './utils.js'
 
-const JWT_SECRET = 'RUTXCVBKLBG&IDCUB7r5y'
 
 mongoose.connect('mongodb+srv://mern02:mern02@cluster0.otbbzte.mongodb.net/?retryWrites=true&w=majority')
 const app = express()
@@ -49,31 +50,18 @@ app.post('/signin', async (req, res) => {
     }
 
     const token = jwt.sign({ email }, JWT_SECRET)
-    return res.redirect(`/profile/${token}`)
+    return res.send(token)
 })
 
-app.get('/profile/:token', async (req, res) => {
-    // const token = req.headers?.authorization?.split(" ")[1]
-    const { token } = req.params
-    if (!token) {
-        return res.status(401).send("Token yoxdur!")
-    }
-
-    jwt.verify(token, JWT_SECRET, async (err, data) => {
-        if (err) {
-            return res.send('token yanlisdir')
-        } else {
-            const { email } = data
-            const user = await userModel.findOne({ email })
-            return res.send(`
+app.get('/profile', authMiddleware, async (req, res) => {
+    const email = req.userEmail
+    console.log(email)
+    const user = await userModel.findOne({ email })
+    return res.send(`
                 <h1>Username: ${user.username}</h1>
                 <h1>Email: ${user.email}</h1>
                 <img src="${user.image}" />
             `)
-        }
-    })
-
-
 })
 
 app.listen(5000, () => {
