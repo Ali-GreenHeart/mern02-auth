@@ -6,7 +6,7 @@ import upload from './multer.js'
 import bcrypt from 'bcrypt'
 import userModel from './model/index.js'
 import jwt from 'jsonwebtoken'
-import { authMiddleware } from './auth.js'
+import { getEmailFromToken } from './auth.js'
 import { JWT_SECRET } from './utils.js'
 
 
@@ -28,7 +28,7 @@ app.post("/signup", upload.single('image'), async (req, res) => {
         image: secure_url
     }
     userModel.create(newUser)
-    return res.redirect('/signin')
+    return res.redirect('/signin.html')
 })
 
 app.post('/signin', async (req, res) => {
@@ -45,12 +45,11 @@ app.post('/signin', async (req, res) => {
     }
 
     const token = jwt.sign({ email }, JWT_SECRET)
-    return res.send(token)
+    return res.redirect(`/profile/${token}`)
 })
 
-app.get('/profile', authMiddleware, async (req, res) => {
+app.get('/profile/:token', getEmailFromToken, async (req, res) => {
     const email = req.userEmail
-    console.log(email)
     const user = await userModel.findOne({ email })
     return res.send(`
                 <h1>Username: ${user.username}</h1>
