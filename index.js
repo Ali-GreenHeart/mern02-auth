@@ -13,13 +13,8 @@ import { JWT_SECRET } from './utils.js'
 mongoose.connect('mongodb+srv://mern02:mern02@cluster0.otbbzte.mongodb.net/?retryWrites=true&w=majority')
 const app = express()
 app.use(express.urlencoded())
+app.use(express.static("./public"))
 
-app.get('/signup', (req, res) => {
-    res.sendFile(path.resolve("./pages/signup.html"))
-})
-app.get('/signin', (req, res) => {
-    res.sendFile(path.resolve("./pages/signin.html"))
-})
 app.post("/signup", upload.single('image'), async (req, res) => {
     const { secure_url } = await cloudinary.uploader.upload(
         req.file.path,

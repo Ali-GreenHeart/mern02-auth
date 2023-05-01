@@ -5,14 +5,17 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Signin</title>
+    <title>Signup</title>
+    <link rel="stylesheet" href="/style.css">
 </head>
 
 <body>
-    <form action="/signin" method="POST">
+    <form action="/signup" method="POST" enctype="multipart/form-data">
+        <input type="text" name="username">
         <input type="email" name="email">
         <input type="password" name="password">
-        <button type="submit">sign in</button>
+        <input type="file" name="image">
+        <button type="submit">sign up</button>
     </form>
 </body>
 

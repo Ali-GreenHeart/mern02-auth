@@ -1,0 +1,18 @@
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border: 2px solid;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: antiquewhite;
+}
